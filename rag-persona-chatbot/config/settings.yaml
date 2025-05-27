@@ -1,0 +1,33 @@
+openai:
+  api_key: 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  # Use environment variable
+  embedding_model: "text-embedding-3-small"
+  classification_model: "gpt-3.5-turbo-0125"
+  generation_model: "gpt-3.5-turbo-0125"
+  temperature: 0.3
+  max_tokens: 2000
+
+vector_db:
+  persist_directory: "./chroma_db"
+  collection_name: "persona_chats"
+  chunk_size: 1000
+  chunk_overlap: 200
+
+personas:
+  - CFO
+  - Teacher
+  - Engineer
+  - Healthcare Professional
+  - Legal Advisor
+  - Marketing Specialist
+  - HR Manager
+  - Data Scientist
+
+retrieval:
+  top_k: 5
+  rerank_top_k: 3
+  similarity_threshold: 0.7
+
+logging:
+  level: "INFO"
+  format: "json"
+  log_file: "logs/rag_chatbot.log"
