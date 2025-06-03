@@ -48,6 +48,6 @@ def export_chromadb_to_json_file(
 
 if __name__ == "__main__":
     export_chromadb_to_json_file(
-        chroma_path="./chromadb",
+        chroma_path="./chroma_db",
         output_json_path="./utils/chroma_data_export.json"
     )
