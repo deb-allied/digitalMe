@@ -1,0 +1,52 @@
+[tool.poetry]
+name = "digitalme-backend"
+version = "0.1.0"
+description = "RAG-based persona chatbot with intelligent classification"
+authors = ["Your Name <your.email@example.com>"]
+readme = "README.md"
+packages = [{ include = "backend" }, { include = "src" }] 
+
+[tool.poetry.dependencies]
+python = ">=3.12, <4.0"
+
+# Core dependencies with latest compatible versions
+openai = "^1.51.2"                    # Latest (May 2025)
+chromadb = "^0.5.5"                   # Latest stable (updated from 0.4.24)
+pydantic = "^2.11.5"                  # Latest (May 2025) 
+pydantic-settings = "^2.8.0"         # Latest compatible with Pydantic 2.11
+transformers = "^4.47.1"              # Latest stable with PyTorch 2.x support
+torch = "^2.7.0"                      # Latest PyTorch (April 2025)
+sentence-transformers = "^4.1.0"      # Latest (April 2025)
+
+# Supporting packages
+numpy = "^1.26.4"                     # Stable version compatible with all above
+pyyaml = "^6.0.2"                     # Latest
+tqdm = "^4.67.0"                      # Latest  
+structlog = "^24.4.0"                 # Latest
+tiktoken = "^0.8.0"                   # Latest
+einops = "^0.8.0"                     # Latest
+
+# Development tools
+pylint = "^3.3.7"                     # Keep as requested
+langchain = "^0.3.25"
+langchain-text-splitters = "^0.3.8"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.3.4"                     # Latest
+black = "^24.10.0"                    # Latest
+isort = "^5.13.2"                     # Latest
+mypy = "^1.13.0"                      # Latest
+
+# Additional recommended dependencies for better performance
+accelerate = { version = "^1.2.1", optional = true }  # For faster training
+datasets = { version = "^3.2.0", optional = true }    # For dataset handling
+
+[tool.poetry.extras]
+# Optional extras for specific use cases
+training = ["accelerate", "datasets"]
+all = ["accelerate", "datasets"]
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
