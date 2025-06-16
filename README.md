@@ -399,41 +399,85 @@ class ChatbotService:
 ## 📁 File Structure
 
 ```
-digitalme/
-├── config/
-│   └── settings.py          # Configuration management
-├── data/
-│   ├── conversations.json   # Default conversation data
-│   └── vectorstore/         # Vector database storage
-├── logs/
-│   └── digitalme.log       # Application logs
-├── src/
-│   ├── __init__.py
-│   ├── models/
-│   │   └── data_models.py  # Pydantic data models
-│   ├── services/
-│   │   ├── __init__.py
-│   │   ├── embedding_service.py
-│   │   ├── vectorstore_service.py
-│   │   ├── retriever_service.py
-│   │   └── chatbot_service.py
-│   ├── utils/
-│   │   └── logger.py       # Logging configuration
-│   └── ui/
-│       └── app.py          # Gradio interface
-├── tests/
-│   ├── test_embedding.py
-│   ├── test_vectorstore.py
-│   ├── test_retriever.py
-│   └── test_chatbot.py
-├── .env.example            # Environment variables template
-├── .gitignore
-├── Dockerfile
-├── poetry.lock
-├── pyproject.toml          # Poetry configuration
-├── README.md
-├── requirements.txt        # For pip users
-└── run.py                  # Application entry point
+DigitalMe:.
+│   .env
+│   .gitattributes
+│   .gitignore
+│   app.log
+│   LICENSE
+│   poetry.lock
+│   pyproject.toml
+│   README.md
+│
+├───.vscode
+│       settings.json
+│
+├───backend
+│   │   main.py
+│   │
+│   ├───data
+│   │       pruned.json
+│   │       pruned123.json
+│   │
+│   ├───data_preprocessors
+│   │       data_preprocess_augment.py
+│   │       gpt_data_simplifier.py
+│   │       __init__.py
+│   │
+│   ├───logs
+│   │       app.log
+│   │       personality_qa.log
+│   │
+│   ├───utils
+│   │   │   chroma_access.py
+│   │   │   logger.py
+│   │   │   __init__.py
+│   │
+│   └───vector_data_handler
+│       │   db.py
+│       │   processor.py
+│       │   __init__.py
+│
+├───chroma_db
+│   │   chroma.sqlite3
+│   │
+│   ├───1202d742-e02e-4b77-bc85-faa50d56d758
+│   │       data_level0.bin
+│   │       header.bin
+│   │       index_metadata.pickle
+│   │       length.bin
+│   │       link_lists.bin
+│
+├───config
+│   │   settings.py
+│
+├───data
+│       conversations.json
+│       pruned123.json
+│
+├───logs
+│       app.log
+│       personality_qa.log
+│
+└───src
+    │   gradio_main.py
+    │   main.py
+    │
+    ├───models
+    │   │   data_models.py
+    │   │   __init__.py
+    │
+    ├───services
+    │   │   chatbot_service.py
+    │   │   embedding_service.py
+    │   │   retriever_service.py
+    │   │   vectorstore_service.py
+    │   │   __init__.py
+    │
+    ├───utils
+    │   │   chroma_access.py
+    │   │   logger.py
+    │   │   __init__.py
 ```
 
 ## 🛠 Development
