@@ -36,15 +36,17 @@ class ChatbotService:
         
         prompt = f"""You are answering questions based on the personality type: {personality_type}
 
-Based on the following context from previous conversations, please answer the user's question in a way that reflects this personality type.
+                    Based on the following context from previous conversations, please answer the user's question in a way that reflects this personality type.
 
-Context from previous messages:
-{context}
+                    Context from previous messages:
+                    {context}
 
-User Question: {query}
+                    User Question: {query}
 
-Please provide a helpful and personality-consistent response:"""
-        
+                    Please provide a helpful and personality-consistent response. 
+                    Also consider the user's intent and provide additional context if necessary. 
+                    Add a follow-up question that the user can ask regarding the content, ask it as if you are asking to help further:"""
+
         return prompt
     
     def answer_question(self, query: str, personality_type: str,

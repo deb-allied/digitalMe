@@ -15,7 +15,7 @@ chromadb = "^0.5.5"                   # Latest stable (updated from 0.4.24)
 pydantic = "^2.11.5"                  # Latest (May 2025) 
 pydantic-settings = "^2.8.0"         # Latest compatible with Pydantic 2.11
 transformers = "^4.47.1"              # Latest stable with PyTorch 2.x support
-torch = "^2.7.0"                      # Latest PyTorch (April 2025)
+torch = {version = "^2.7.1+cu126", source = "pytorch"}                      # Latest PyTorch (April 2025)
 sentence-transformers = "^4.1.0"      # Latest (April 2025)
 
 # Supporting packages
@@ -30,6 +30,14 @@ einops = "^0.8.0"                     # Latest
 pylint = "^3.3.7"                     # Keep as requested
 langchain = "^0.3.25"
 langchain-text-splitters = "^0.3.8"
+streamlit = "^1.45.1"
+streamlit-chat = "^0.1.1"
+gradio = "^5.32.1"
+
+[[tool.poetry.source]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu126"
+priority = "explicit"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.3.4"                     # Latest

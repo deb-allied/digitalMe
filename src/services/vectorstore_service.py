@@ -13,6 +13,9 @@ from src.utils.logger import LoggerSetup
 class VectorStoreService:
     """Service for managing vector storage using ChromaDB."""
     
+    # Class constant for generalist personality
+    GENERALIST_PERSONALITY = "Generalist"
+    
     def __init__(self, embedding_service: EmbeddingService):
         self.logger = LoggerSetup.get_logger(self.__class__.__name__)
         self.embedding_service = embedding_service
@@ -188,7 +191,17 @@ class VectorStoreService:
     
     def query_by_personality(self, query: str, personality_type: str, 
                            top_k: Optional[int] = None) -> Dict[str, Any]:
-        """Query messages for a specific personality."""
+        """
+        Query messages for a specific personality or all personalities (generalist).
+        
+        Args:
+            query: The search query
+            personality_type: The personality type to filter by, or 'generalist' for all personalities
+            top_k: Number of results to return
+            
+        Returns:
+            Query results from ChromaDB
+        """
         try:
             if top_k is None:
                 top_k = config.retriever.top_k
@@ -196,26 +209,52 @@ class VectorStoreService:
             # Generate query embedding
             query_embedding = self.embedding_service.generate_embedding(query)
             
-            # Query with personality filter
-            results = self.collection.query(
-                query_embeddings=[query_embedding],
-                n_results=top_k,
-                where={"personality_type": personality_type}
-            )
-            
-            self.logger.info(
-                "Queried %d results for personality '%s'",
-                len(results["documents"][0]) if results["documents"] else 0,
-                personality_type
-            )
+            # Handle generalist personality - query all personalities
+            if personality_type.lower() == self.GENERALIST_PERSONALITY.lower():
+                results = self.collection.query(
+                    query_embeddings=[query_embedding],
+                    n_results=top_k
+                    # No where clause - gets all personalities
+                )
+                
+                self.logger.info(
+                    "Queried %d results for generalist personality (all personalities)",
+                    len(results["documents"][0]) if results["documents"] else 0
+                )
+            else:
+                # Query with specific personality filter
+                results = self.collection.query(
+                    query_embeddings=[query_embedding],
+                    n_results=top_k,
+                    where={"personality_type": personality_type}
+                )
+                
+                self.logger.info(
+                    "Queried %d results for personality '%s'",
+                    len(results["documents"][0]) if results["documents"] else 0,
+                    personality_type
+                )
             
             return results
         except Exception as e:
             self.logger.error("Failed to query by personality: %s", str(e))
             raise
     
+    def query_generalist(self, query: str, top_k: Optional[int] = None) -> Dict[str, Any]:
+        """
+        Convenience method to query the generalist personality.
+        
+        Args:
+            query: The search query
+            top_k: Number of results to return
+            
+        Returns:
+            Query results from all personalities
+        """
+        return self.query_by_personality(query, self.GENERALIST_PERSONALITY, top_k)
+    
     def get_all_personalities(self) -> List[str]:
-        """Get all unique personality types in the store."""
+        """Get all unique personality types in the store, including generalist."""
         try:
             # Get all documents
             with tqdm(desc="Loading personalities", unit="step") as pbar:
@@ -228,9 +267,46 @@ class VectorStoreService:
                 if metadata and "personality_type" in metadata:
                     personalities.add(metadata["personality_type"])
             
-            return sorted(list(personalities))
+            # Add generalist if there are any personalities
+            personalities_list = sorted(list(personalities))
+            if personalities_list:
+                personalities_list.insert(0, self.GENERALIST_PERSONALITY)
+
+            
+            return personalities_list
         except Exception as e:
             self.logger.error("Failed to get personalities: %s", str(e))
+            raise
+    
+    def get_personality_stats(self) -> Dict[str, int]:
+        """
+        Get statistics about message counts per personality.
+        
+        Returns:
+            Dictionary with personality types as keys and message counts as values
+        """
+        try:
+            with tqdm(desc="Loading personality stats", unit="step") as pbar:
+                all_docs = self.collection.get()
+                pbar.update(1)
+            
+            stats = {}
+            total_messages = 0
+            
+            for metadata in all_docs.get("metadatas", []):
+                if metadata and "personality_type" in metadata:
+                    personality = metadata["personality_type"]
+                    stats[personality] = stats.get(personality, 0) + 1
+                    total_messages += 1
+            
+            # Add generalist count (same as total)
+            if total_messages > 0:
+                stats[self.GENERALIST_PERSONALITY] = total_messages
+            
+            self.logger.info("Retrieved stats for %d personalities", len(stats))
+            return stats
+        except Exception as e:
+            self.logger.error("Failed to get personality stats: %s", str(e))
             raise
     
     def clear_collection(self) -> None:
