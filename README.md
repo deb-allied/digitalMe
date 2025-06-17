@@ -1,4 +1,4 @@
-# 🧠 DigitalMe - AI-Powered Personality Chat System
+# 🧠 DigitalMe - Multi-Personality AI Communication Platform
 
 [![Python](https://img.shields.io/badge/python-3.9+-blue.svg)](https://www.python.org/downloads/)
 [![Poetry](https://img.shields.io/badge/poetry-1.0+-purple.svg)](https://python-poetry.org/)
@@ -6,7 +6,22 @@
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ## Executive Summary
-DigitalMe represents a paradigm shift in AI-powered communication, introducing the world's first multi-personality chatbot system designed to enable seamless professional discourse across diverse domains. By leveraging advanced embeddings and vector search technologies, DigitalMe creates distinct AI personalities that can authentically communicate within specific professional contexts, effectively allowing a single user to engage with domain experts using their specialized knowledge and communication patterns.
+DigitalMe represents a paradigm shift in AI-powered communication, introducing a multi-personality chatbot system designed to enable seamless professional discourse across diverse domains. By leveraging advanced embeddings and vector search technologies, DigitalMe creates distinct AI personalities that can authentically communicate within specific professional contexts, effectively allowing a single user to engage with domain experts using their specialized knowledge and communication patterns. It aims to address commnication gaps between varying professions and helps address them in an effective manner, using user data and an internal chat model which can effectively mimic the specified professions talking style and expertise, while not having the knowledge access of other personalities. Every personality is catered to only that specific one, without generalising all the data resources and information lingo thus providing effective reasoning with a few prompts without frustration.
+
+The different personalities will be created using our model, based on the professional context assesment.
+
+## 🌟 Features
+
+- **Multiple Personalities**: Create and manage distinct AI personalities with unique conversational styles
+- **Context-Aware Responses**: Uses vector embeddings to find relevant context from conversation history
+- **Auto-Initialization**: Services initialize automatically on startup with optional data loading
+- **Modern Web Interface**: Clean, responsive Gradio interface with dark theme
+- **Real-time Chat**: Interactive chat interface with personality selection
+- **Single Query Mode**: Ask one-off questions to specific personalities
+- **Personality Management**: Add new messages and expand personality knowledge bases
+- **Comprehensive Logging**: Detailed logging system for debugging and monitoring
+- **Batch Processing**: Efficient batch operations for loading large conversation datasets
+
 ## Core Technology Architecture
 ### Personality-Driven AI Framework
 DigitalMe employs a sophisticated personality modeling system that goes beyond traditional chatbots by creating independent AI agents, each trained on profession-specific conversational data. The system currently processes ChatGPT conversation dumps in JSON format, with plans to integrate multiple data sources for enhanced training capabilities.
@@ -78,18 +93,6 @@ DigitalMe's unique approach addresses critical limitations in current AI communi
 ## Market Impact
 DigitalMe represents a fundamental shift toward specialized AI that can serve as trusted professional counterparts rather than generic assistants. This approach has the potential to revolutionize how professionals collaborate, learn, and solve complex problems by providing access to authentic, specialized expertise across multiple domains within a single platform.
 The system's modular, personality-driven architecture positions it as a scalable solution for organizations seeking to enhance their professional capabilities without the traditional constraints of hiring and training specialized personnel across multiple domains.
-
-## 🌟 Features
-
-- **Multiple Personalities**: Create and manage distinct AI personalities with unique conversational styles
-- **Context-Aware Responses**: Uses vector embeddings to find relevant context from conversation history
-- **Auto-Initialization**: Services initialize automatically on startup with optional data loading
-- **Modern Web Interface**: Clean, responsive Gradio interface with dark theme
-- **Real-time Chat**: Interactive chat interface with personality selection
-- **Single Query Mode**: Ask one-off questions to specific personalities
-- **Personality Management**: Add new messages and expand personality knowledge bases
-- **Comprehensive Logging**: Detailed logging system for debugging and monitoring
-- **Batch Processing**: Efficient batch operations for loading large conversation datasets
 
 ## 📋 Table of Contents
 
