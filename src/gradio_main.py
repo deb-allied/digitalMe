@@ -457,7 +457,7 @@ class PersonalityQAChatbotGradio:
             # Header
             gr.HTML("""
                 <div class="app-header">
-                    <h1>🧠 DigitalMe</h1>
+                    <h1>DigitalMe</h1>
                     <p>AI-Powered Personality Chat System</p>
                 </div>
             """)
@@ -528,7 +528,7 @@ class PersonalityQAChatbotGradio:
                         clear_btn = gr.Button("🗑️ Clear Chat", size="sm", variant="secondary")
                 
                 # Query Tab
-                with gr.Tab("🔍 Query", id=3):
+                with gr.Tab("🔍 Single Query", id=3):
                     with gr.Column():
                         query_personality = gr.Dropdown(
                             label="Select Personality",
